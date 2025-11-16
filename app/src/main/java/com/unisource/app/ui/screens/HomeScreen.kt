@@ -24,10 +24,11 @@ fun HomeScreen(
     )
 
     val categories = listOf(
-        AppItem("Books", "https://picsum.photos/id/1050/200/200"),
-        AppItem("Exams", "https://picsum.photos/id/1080/200/200"),
+        AppItem("Ads", "https://picsum.photos/id/1011/200/200"),
+        AppItem("Exams", "https://picsum.photos/id/1050/200/200"),
+        AppItem("Books", "https://picsum.photos/id/1080/200/200"),
         AppItem("Sheets", "https://picsum.photos/id/1040/200/200"),
-    )
+)
 
     Scaffold(
         topBar = {

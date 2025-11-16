@@ -1,33 +1,62 @@
 package com.unisource.app.ui
 
+import android.net.Uri
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.unisource.app.ui.screens.HomeScreen
 import com.unisource.app.ui.screens.DetailScreen
+import com.unisource.app.ui.screens.BooksScreen
 
 @Composable
 fun AppRoot() {
     MaterialTheme {
         Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
+
             val nav = rememberNavController()
 
-            NavHost(navController = nav, startDestination = "home") {
+            NavHost(
+                navController = nav,
+                startDestination = "home"
+            ) {
+
                 composable("home") {
                     HomeScreen(
-                        onItemClick = { title, imageUrl ->
-                            nav.navigate("detail/$title/$imageUrl")
+                        onItemClick = { title, url ->
+
+                            if (title == "Books") {
+                                nav.navigate("books")
+                            } else {
+                                val encoded = Uri.encode(url)
+                                nav.navigate("detail/$title/$encoded")
+                            }
                         }
                     )
                 }
 
-                composable("detail/{title}/{url}") { backStack ->
-                    DetailScreen(
-                        title = backStack.arguments?.getString("title") ?: "",
-                        imageUrl = backStack.arguments?.getString("url") ?: ""
+                composable("books") {
+                    BooksScreen(
+                        onItemClick = { title, url ->
+                            val encoded = Uri.encode(url)
+                            nav.navigate("detail/$title/$encoded")
+                        }
                     )
+                }
+
+                composable(
+                    "detail/{title}/{url}",
+                    arguments = listOf(
+                        navArgument("title") { type = NavType.StringType },
+                        navArgument("url") { type = NavType.StringType }
+                    )
+                ) { backStack ->
+                    val title = backStack.arguments?.getString("title") ?: ""
+                    val url = Uri.decode(backStack.arguments?.getString("url") ?: "")
+                    DetailScreen(title, url)
                 }
             }
         }
