@@ -8,6 +8,7 @@ import coil.compose.AsyncImage
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DetailScreen(title: String, imageUrl: String) {
     Scaffold(
