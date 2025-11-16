@@ -20,17 +20,17 @@ fun HorizontalCard(
     ElevatedCard(
         onClick = onClick,
         modifier = Modifier
-            .width(180.dp)
-            .height(150.dp)
+            .width(200.dp)
+            .height(180.dp)
     ) {
         Column(Modifier.fillMaxSize()) {
             AsyncImage(
                 model = item.imageUrl,
                 contentDescription = null,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .width(180.dp)
                     .height(100.dp)
-                    .clip(RoundedCornerShape(12.dp)),
+                    .clip(RoundedCornerShape(26.dp)),
                 contentScale = ContentScale.Crop
             )
 

@@ -35,13 +35,13 @@ fun VerticalItem(
                 model = item.imageUrl,
                 contentDescription = null,
                 modifier = Modifier
-                    .width(85.dp)
-                    .height(85.dp)
-                    .clip(RoundedCornerShape(12.dp)),
+                    .width(87.dp)
+                    .height(87.dp)
+                    .clip(RoundedCornerShape(26.dp)),
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(Modifier.width(16.dp))
+            Spacer(Modifier.width(24.dp))
 
             Text(
                 item.title,
