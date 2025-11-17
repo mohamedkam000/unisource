@@ -29,9 +29,7 @@ fun VerticalItem(
         )
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(12.dp),
+            modifier = Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -39,16 +37,26 @@ fun VerticalItem(
                 model = item.imageUrl,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(87.dp)
-                    .clip(RoundedCornerShape(26.dp)),
+                    .fillMaxHeight()
+                    .width(110.dp) // same as card height for symmetry
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = 0.dp,
+                            topEnd = 28.dp,
+                            bottomEnd = 28.dp,
+                            bottomStart = 0.dp
+                        )
+                    ),
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(Modifier.width(24.dp))
+            Spacer(Modifier.width(20.dp))
 
             Text(
-                item.title,
-                style = MaterialTheme.typography.titleMedium
+                text = item.title,
+                style = MaterialTheme.typography.titleMedium.copy(
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             )
         }
     }

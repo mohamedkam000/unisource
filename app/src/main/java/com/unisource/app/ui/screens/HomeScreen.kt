@@ -18,16 +18,18 @@ fun HomeScreen(
     onItemClick: (String, String) -> Unit
 ) {
     val horizontalCards = listOf(
-        AppItem("Engineer Day", "https://picsum.photos/id/1018/600/400"),
-        AppItem("Discussion", "https://picsum.photos/id/1015/600/400"),
-        AppItem("Announcement", "https://picsum.photos/id/1020/600/400"),
+        AppItem("Announcements", "https://cdn-icons-png.flaticon.com/512/7653/7653930.png"),
+        AppItem("Activities", "https://cdn-icons-png.flaticon.com/512/18120/18120765.png"),
+        AppItem("Topics", "https://cdn-icons-png.flaticon.com/512/9431/9431885.png"),
+        AppItem("Discussion", "https://cdn-icons-png.flaticon.com/512/17262/17262972.png"),
     )
 
     val categories = listOf(
-        AppItem("Ads", "https://picsum.photos/id/1011/200/200"),
-        AppItem("Exams", "https://picsum.photos/id/1050/200/200"),
-        AppItem("Books", "https://picsum.photos/id/1080/200/200"),
-        AppItem("Sheets", "https://picsum.photos/id/1040/200/200"),
+        AppItem("Schedule", "https://cdn-icons-png.flaticon.com/512/3652/3652191.png"),
+        AppItem("Books", "https://cdn-icons-png.flaticon.com/512/5402/5402751.png"),
+        AppItem("Exams", "https://cdn-icons-png.flaticon.com/512/9043/9043010.png"),
+        AppItem("Assignments", "https://cdn-icons-png.flaticon.com/512/11265/11265088.png"),
+        AppItem("Courses", "https://cdn-icons-png.flaticon.com/512/10748/10748346.png"),
 )
 
     Scaffold(
@@ -56,9 +58,9 @@ fun HomeScreen(
                         HorizontalCard(card, onClick = { onItemClick(card.title, card.imageUrl) })
                     }
                 }
-
-                Spacer(Modifier.height(24.dp))
             }
+
+            Spacer(Modifier.height(32.dp))
 
             item {
                 Text(

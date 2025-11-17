@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
+import com.unisource.app.ui.theme.AppMaterialTheme
 import com.unisource.app.ui.AppRoot
 
 class MainActivity : ComponentActivity() {
@@ -11,7 +12,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         actionBar?.hide()
         setContent {
-            AppRoot()
+            AppMaterialTheme {
+                AppRoot()
+            }
         }
     }
 }
