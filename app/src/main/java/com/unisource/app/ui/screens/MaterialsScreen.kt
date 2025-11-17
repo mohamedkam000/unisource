@@ -16,14 +16,41 @@ import androidx.compose.foundation.clickable
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
 import com.unisource.app.data.MaterialsRepository
 import com.unisource.app.data.MaterialItem
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.util.lerp
+
+private val AngledRectShape = object : Shape {
+    override fun createOutline(size: Size, layoutDirection: LayoutDirection, density: Density): Outline {
+        return Outline.Generic(
+            Path().apply {
+                moveTo(0f, 0f)
+                lineTo(size.width, 0f)
+                lineTo(size.width, size.height)
+                lineTo(0f, size.height)
+                close()
+            }
+        )
+
+        return Outline.Generic(
+            Path().apply {
+                moveTo(0f, size.height)
+                lineTo(0f, 0f)
+                lineTo(size.width * 0.9f, 0f) 
+                lineTo(size.width, size.height) 
+            }
+        )
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,8 +87,8 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
                 },
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
-                    containerColor = Color.Transparent,
-                    scrolledContainerColor = Color.Transparent
+                    containerColor = Color.Transparent, 
+                    scrolledContainerColor = Color.Transparent 
                 )
             )
         }
@@ -78,7 +105,7 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 8.dp, bottom = 16.dp)
-                        .alpha(1f - collapsedFraction * 0.5f),
+                        .alpha(1f - collapsedFraction * 0.5f), 
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     val scale = lerp(1.5f, 1f, collapsedFraction)
@@ -128,14 +155,7 @@ private fun MaterialItemCard(item: MaterialItem, onItemClick: (MaterialItem) -> 
                 modifier = Modifier
                     .width(100.dp)
                     .fillMaxHeight()
-                    .clip(
-                        RoundedCornerShape(
-                            topStart = 20.dp,
-                            bottomStart = 20.dp,
-                            topEnd = 0.dp,
-                            bottomEnd = 0.dp
-                        )
-                    )
+                    .clip(AngledRectShape) 
             ) {
                 AsyncImage(
                     model = item.imageUrl,
@@ -148,8 +168,7 @@ private fun MaterialItemCard(item: MaterialItem, onItemClick: (MaterialItem) -> 
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .weight(1f),
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(

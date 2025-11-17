@@ -75,14 +75,14 @@ fun AnnouncementDetailScreen(
 
             Spacer(Modifier.height(8.dp))
 
-            Text(
+/*            Text(
                 announcement.subtitle,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
 
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(16.dp))*/
 
             Text(
                 announcement.content,

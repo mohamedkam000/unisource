@@ -5,25 +5,25 @@ import com.unisource.app.model.Announcement
 object AnnouncementsRepository {
     val announcements = listOf(
         Announcement(
-            title = "Campus Festival",
-            subtitle = "Join the biggest event of the year!",
-            content = "The annual campus festival will feature concerts, games, and food stalls...",
-            imageUrl = "https://picsum.photos/id/1018/400/300",
+            title = "بداية الدراسة حضورياً ببعض الكليات",
+//            subtitle = "Join the biggest event of the year!",
+            content = "عادت جامعة النيلين إلى استئناف التعليم لبعض الكليات، حيث تم إعادة فتح أبوابها لاستقبال الطلاب والأساتذة بعد فترة من الانقطاع. وقد شهدت الجامعة جهوداً كبيرة لضمان سلامة جميع المشاركين، من خلال تطبيق الإجراءات الاحترازية والتدابير الصحية اللازمة. ويأتي هذا الاستئناف في إطار حرص الجامعة على مواصلة العملية التعليمية والبحثية، ودعماً للكليات في استعادة نشاطها الأكاديمي والتواصل مع مجتمعها الجامعي.",
+            imageUrl = "https://ar.uni24k.com/media/CACHE/images/unis/pic_school_14350_building_40ccae61/34728563b5adf856742b40f7999e0881.jpg",
             date = "2025-11-17"
         ),
         Announcement(
-            title = "New Library Hours",
-            subtitle = "Library now opens earlier",
-            content = "Starting next week, the library will open from 7:00 AM to 10:00 PM...",
-            imageUrl = "https://picsum.photos/id/1019/400/300",
-            date = "2025-11-17"
+            title = "تجهيز مقر الجامعة بالخرطوم للإمتحانات",
+//            subtitle = "Library now opens earlier",
+            content = "اتخذت جامعة النيلين ترتيبات محكمة لاستئناف الامتحانات في ولاية الخرطوم، حيث قامت بتنسيق الجهات المختصة لتأمين القاعات الدراسية وتعقيمها، وتوفير الإجراءات الوقائية الصحية للطلاب والمراقبين، بالإضافة إلى وضع جداول زمنية واضحة وتوزيع الملاكات التدريسية والإدارية لضمان سير العملية الامتحانية بسلاسة وأمان. وتأتي هذه الترتيبات في إطار حرص الجامعة على الحفاظ على سلامة جميع المشاركين واستقرار العملية التعليمية وسط الظروف الراهنة.",
+            imageUrl = "https://www.sudanakhbar.com/wp-content/uploads/2025/08/515441598_808059441575763_4146963551461974963_n-810x581.jpg",
+            date = "2025-10-17"
         ),
         Announcement(
-            title = "Exam Schedule Released",
-            subtitle = "Check your semester dates",
-            content = "The exam timetable is now available online. Make sure to check your courses...",
-            imageUrl = "https://picsum.photos/id/1020/400/300",
-            date = "2025-11-16"
+            title = "إعادة ترميم كلية التجارة",
+//            subtitle = "Check your semester dates",
+            content = "تمّت إعادة ترميم كلية التجارة بجامعة النيلين بعد إجراء أعمال صيانة شاملة للمرافق والمباني، حيث شملت أعمال الترميم تحديث قاعات الدراسة والمختبرات، وتجهيزها بأحدث التقنيات التعليمية، بالإضافة إلى إعادة تأهيل المكتبة والمرافق الخدمية لضمان بيئة دراسية ملائمة للطلاب والأساتذة. وتأتي هذه الجهود في إطار سعي الجامعة لتعزيز جودة التعليم وتحسين مستوى الخدمات المقدمة في كلية التجارة.",
+            imageUrl = "https://i.spotic.net/JDJ5JDEwJFVEVktmSmExM0VVYWpHRUhMZW9jak9JV3V3UW5OaE4wMUQyVjZnVm13U0lrVE5jZTBab21P/l/750/176c18c3-fc4e-4278-a673-8ab152802e6a.png",
+            date = "2025-8-21"
         )
     )
 }

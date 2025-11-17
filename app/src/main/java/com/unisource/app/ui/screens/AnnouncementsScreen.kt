@@ -176,11 +176,11 @@ private fun GoogleStyleAnnouncementCard(
         
         Spacer(modifier = Modifier.height(4.dp))
 
-        Text(
+/*        Text(
             text = announcement.subtitle,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 2
-        )
+        )*/
     }
 }
