@@ -38,7 +38,7 @@ fun VerticalItem(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width(110.dp) // same as card height for symmetry
+                    .width(110.dp)
                     .clip(
                         RoundedCornerShape(
                             topStart = 0.dp,

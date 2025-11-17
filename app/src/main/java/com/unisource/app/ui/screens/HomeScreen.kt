@@ -58,9 +58,8 @@ fun HomeScreen(
                         HorizontalCard(card, onClick = { onItemClick(card.title, card.imageUrl) })
                     }
                 }
-            }
-
             Spacer(Modifier.height(32.dp))
+            }
 
             item {
                 Text(
