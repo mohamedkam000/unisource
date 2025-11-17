@@ -32,6 +32,7 @@ import java.time.format.FormatStyle
 fun AnnouncementsScreen(
     onAnnouncementClick: (String) -> Unit
 ) {
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
     val announcements = AnnouncementsRepository.announcements
         .sortedByDescending { it.date }
 
@@ -68,7 +69,7 @@ fun AnnouncementsScreen(
                             alpha = alpha
                         )
 
-                        Spacer(modifier = Modifier.width(32.dp))
+                        Spacer(modifier = Modifier.width(16.dp))
                         
                         Text(
                             "Feed",
@@ -175,12 +176,6 @@ private fun GoogleStyleAnnouncementCard(
         )
         
         Spacer(modifier = Modifier.height(4.dp))
-
-/*        Text(
-            text = announcement.subtitle,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            maxLines = 2
-        )*/
     }
+}
 }
