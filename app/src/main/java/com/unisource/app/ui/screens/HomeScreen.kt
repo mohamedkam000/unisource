@@ -6,16 +6,18 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.material3.TopAppBarDefaults.exitUntilCollapsedScrollBehavior
+import androidx.compose.material3.TopAppBarDefaults.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import com.unisource.app.model.AppItem
 import com.unisource.app.ui.widgets.HorizontalCard
 import com.unisource.app.ui.widgets.VerticalItem
@@ -47,10 +49,8 @@ fun HomeScreen(
         AppItem("Courses", "https://cdn-icons-png.flaticon.com/512/10748/10748346.png"),
     )
 
-    val decayAnimationSpec: DecayAnimationSpec<Float> = splineBasedDecay()
-    val scrollBehavior = exitUntilCollapsedScrollBehavior(
-        flingAnimationSpec = decayAnimationSpec
-    )
+    val topAppBarState = rememberTopAppBarState()
+    val scrollBehavior = exitUntilCollapsedScrollBehavior(state = topAppBarState)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -59,12 +59,16 @@ fun HomeScreen(
                 title = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         val collapseFraction = scrollBehavior.state.collapsedFraction
+                        val targetScale = 1f - (0.45f * collapseFraction)
+                        val targetAlpha = 1f - collapseFraction
                         val scale by animateFloatAsState(
-                            targetValue = 1f - (0.45f * collapseFraction),
+                            targetValue = targetScale,
+                            animationSpec = tween(durationMillis = 300),
                             label = "LogoScale"
                         )
                         val alpha by animateFloatAsState(
-                            targetValue = 1f - collapseFraction,
+                            targetValue = targetAlpha,
+                            animationSpec = tween(durationMillis = 300),
                             label = "LogoAlpha"
                         )
 
