@@ -7,11 +7,12 @@ import androidx.compose.material3.*
 import androidx.compose.material3.TopAppBarDefaults.exitUntilCollapsedScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
-import androidx.compose.ui.input.*
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.shape.CircleShape
 import coil.compose.AsyncImage
 import com.unisource.app.model.AppItem
 import com.unisource.app.ui.widgets.VerticalItem
@@ -23,16 +24,16 @@ fun BooksScreen(
     onSemesterClick: (String) -> Unit
 ) {
     val semesters = listOf(
-        AppItem("Semester 1", "https://picsum.photos/id/1010/200/200"),
-        AppItem("Semester 2", "https://picsum.photos/id/1011/200/200"),
-        AppItem("Semester 3", "https://picsum.photos/id/1012/200/200"),
-        AppItem("Semester 4", "https://picsum.photos/id/1013/200/200"),
-        AppItem("Semester 5", "https://picsum.photos/id/1014/200/200"),
-        AppItem("Semester 6", "https://picsum.photos/id/1015/200/200"),
-        AppItem("Semester 7", "https://picsum.photos/id/1016/200/200"),
-        AppItem("Semester 8", "https://picsum.photos/id/1017/200/200"),
-        AppItem("Semester 9", "https://picsum.photos/id/1020/200/200"),
-        AppItem("Semester 10", "https://picsum.photos/id/1021/200/200")
+        AppItem("Semester 1", "https://cdn-icons-png.flaticon.com/512/8068/8068017.png"),
+        AppItem("Semester 2", "https://cdn-icons-png.flaticon.com/512/8068/8068073.png"),
+        AppItem("Semester 3", "https://cdn-icons-png.flaticon.com/256/8068/8068129.png"),
+        AppItem("Semester 4", "https://cdn-icons-png.flaticon.com/512/8068/8068184.png"),
+        AppItem("Semester 5", "https://cdn-icons-png.freepik.com/512/8068/8068238.png"),
+        AppItem("Semester 6", "https://cdn-icons-png.flaticon.com/512/8068/8068292.png"),
+        AppItem("Semester 7", "https://cdn-icons-png.flaticon.com/512/9494/9494631.png"),
+        AppItem("Semester 8", "https://cdn-icons-png.flaticon.com/512/8068/8068393.png"),
+        AppItem("Semester 9", "https://cdn-icons-png.flaticon.com/256/8067/8067930.png"),
+        AppItem("Semester 10", "https://cdn-icons-png.flaticon.com/512/9494/9494568.png")
     )
 
     val scrollBehavior = exitUntilCollapsedScrollBehavior()
@@ -47,12 +48,13 @@ fun BooksScreen(
                         val scale = 1f - (0.45f * collapseFraction)
 
                         AsyncImage(
-                            model = "https://picsum.photos/id/1003/200/200",
+                            model = "https://cdn-icons-png.flaticon.com/512/5402/5402751.png",
                             contentDescription = null,
                             modifier = Modifier
                                 .size(48.dp)
-                                .scale(scale),
-                            contentScale = ContentScale.Fit
+                                .scale(scale)
+                                .clip(CircleShape),
+                            contentScale = ContentScale.Crop
                         )
 
                         Spacer(modifier = Modifier.width(12.dp))
