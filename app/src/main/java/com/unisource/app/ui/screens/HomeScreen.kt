@@ -1,17 +1,8 @@
 package com.unisource.app.ui.screens
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -23,14 +14,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.shape.RoundedCornerShape
 import com.unisource.app.R
 import com.unisource.app.model.AppItem
 import com.unisource.app.ui.widgets.HorizontalCard
@@ -41,11 +33,18 @@ import com.unisource.app.ui.widgets.VerticalItem
 fun HomeScreen(
     onItemClick: (String, String) -> Unit
 ) {
-    val horizontalCards = listOf(
+/*    val horizontalCards = listOf(
         AppItem("Announcements", "https://cdn-icons-png.flaticon.com/512/7653/7653930.png"),
         AppItem("Activities", "https://cdn-icons-png.flaticon.com/512/18120/18120765.png"),
         AppItem("Topics", "https://cdn-icons-png.flaticon.com/512/9431/9431885.png"),
         AppItem("Discussion", "https://cdn-icons-png.flaticon.com/512/17262/17262972.png"),
+    )*/
+    
+    val horizontalCards = listOf(
+        AppItem("Announcements", "https://cdn-icons-gif.flaticon.com/15747/15747228.gif"),
+        AppItem("Activities", "https://cdn-icons-gif.flaticon.com/14164/14164931.gif"),
+        AppItem("Topics", "https://cdn-icons-gif.flaticon.com/15401/15401436.gif"),
+        AppItem("Discussion", "https://cdn-icons-gif.flaticon.com/17556/17556488.gif"),
     )
 
     val categories = listOf(
@@ -65,21 +64,17 @@ fun HomeScreen(
         topBar = {
             LargeTopAppBar(
                 title = {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .padding(6.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f))
+                            .padding(horizontal = 12.dp, vertical = 6.dp)
+                    ) {
                         val collapseFraction = scrollBehavior.state.collapsedFraction
-                        val targetScale = (1f - 0.45f * collapseFraction).coerceAtLeast(0.55f)
-                        val targetAlpha = (1f - collapseFraction).coerceIn(0f, 1f)
-
-                        val scale by animateFloatAsState(
-                            targetValue = targetScale,
-                            animationSpec = tween(durationMillis = 300),
-                            label = ""
-                        )
-                        val alpha by animateFloatAsState(
-                            targetValue = targetAlpha,
-                            animationSpec = tween(durationMillis = 300),
-                            label = ""
-                        )
+                        val scale = (1f - 0.45f * collapseFraction).coerceAtLeast(0.55f)
+                        val alpha = (1f - collapseFraction).coerceIn(0f, 1f)
 
                         Image(
                             painter = painterResource(R.drawable.logo),
@@ -87,10 +82,11 @@ fun HomeScreen(
                             modifier = Modifier
                                 .size(48.dp)
                                 .scale(scale)
-                                .alpha(alpha),
+                                .alpha(alpha)
                         )
 
                         Spacer(modifier = Modifier.width(12.dp))
+
                         Text(
                             "Unisource",
                             style = MaterialTheme.typography.titleLarge.copy(
@@ -123,7 +119,11 @@ fun HomeScreen(
                 Text(
                     "Featured",
                     style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f))
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
                 )
 
                 LazyRow(
@@ -136,6 +136,7 @@ fun HomeScreen(
                         }
                     }
                 }
+
                 Spacer(Modifier.height(32.dp))
             }
 
@@ -143,7 +144,11 @@ fun HomeScreen(
                 Text(
                     "Categories",
                     style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f))
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
                 )
             }
 
