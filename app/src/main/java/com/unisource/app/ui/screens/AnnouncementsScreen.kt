@@ -9,6 +9,7 @@ import androidx.compose.material3.TopAppBarDefaults.exitUntilCollapsedScrollBeha
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.unisource.app.data.AnnouncementsRepository
 import com.unisource.app.ui.widgets.AnnouncementCard
 import java.time.LocalDate
