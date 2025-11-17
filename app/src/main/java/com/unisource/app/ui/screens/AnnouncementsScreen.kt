@@ -43,7 +43,7 @@ fun AnnouncementsScreen(
                         val scale = 1f - (0.4f * collapseFraction)
 
                         AsyncImage(
-                            model = "https://cdn-icons-png.flaticon.com/512/1828/1828817.png",
+                            model = "https://cdn-icons-png.flaticon.com/512/7653/7653930.png",
                             contentDescription = null,
                             modifier = Modifier
                                 .size(40.dp)
