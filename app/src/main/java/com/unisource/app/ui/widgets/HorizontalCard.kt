@@ -27,7 +27,7 @@ fun HorizontalCard(
         modifier = Modifier.size(200.dp),
         shape = RoundedCornerShape(28.dp),
         colors = CardDefaults.elevatedCardColors(
-            containerColor = Color.Transparent
+            containerColor = MaterialTheme.colorScheme.surface // theme-aware, not hardcoded
         )
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -40,6 +40,7 @@ fun HorizontalCard(
                 contentScale = ContentScale.Crop
             )
 
+            // Gradient overlay to ensure text contrast
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -57,7 +58,7 @@ fun HorizontalCard(
                 Text(
                     text = item.title,
                     style = MaterialTheme.typography.bodyLarge.copy(
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface // always readable over surface
                     ),
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis

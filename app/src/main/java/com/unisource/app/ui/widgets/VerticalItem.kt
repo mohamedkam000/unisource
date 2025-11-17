@@ -29,7 +29,9 @@ fun VerticalItem(
         )
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -37,26 +39,16 @@ fun VerticalItem(
                 model = item.imageUrl,
                 contentDescription = null,
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .width(110.dp)
-                    .clip(
-                        RoundedCornerShape(
-                            topStart = 0.dp,
-                            topEnd = 28.dp,
-                            bottomEnd = 28.dp,
-                            bottomStart = 0.dp
-                        )
-                    ),
+                    .size(87.dp)
+                    .clip(RoundedCornerShape(26.dp)),
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(Modifier.width(20.dp))
+            Spacer(Modifier.width(24.dp))
 
             Text(
-                text = item.title,
-                style = MaterialTheme.typography.titleMedium.copy(
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                item.title,
+                style = MaterialTheme.typography.titleMedium
             )
         }
     }
