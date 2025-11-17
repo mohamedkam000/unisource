@@ -46,16 +46,20 @@ fun HorizontalCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter)
-                    .padding(horizontal = 12.dp, vertical = 16.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(
-                        Color.White.copy(alpha = 0.3f)
-                    )
-                    .blur(16.dp)
-                    .padding(8.dp)
+                    .padding(12.dp)
             ) {
+                Box(
+                    modifier = Modifier
+                        .matchParentSize()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color.White.copy(alpha = 0.25f))
+                        .blur(20.dp)
+                )
+
                 Text(
                     text = item.title,
+                    modifier = Modifier
+                        .padding(12.dp),
                     style = MaterialTheme.typography.bodyLarge.copy(
                         color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.SemiBold
