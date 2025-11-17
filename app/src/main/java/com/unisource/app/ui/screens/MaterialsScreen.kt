@@ -28,25 +28,19 @@ import com.unisource.app.data.MaterialItem
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.util.lerp
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.text.style.TextOverflow
 
 private val AngledRectShape = object : Shape {
     override fun createOutline(size: Size, layoutDirection: LayoutDirection, density: Density): Outline {
         return Outline.Generic(
             Path().apply {
-                moveTo(0f, 0f)
-                lineTo(size.width, 0f)
-                lineTo(size.width, size.height)
-                lineTo(0f, size.height)
-                close()
-            }
-        )
-
-        return Outline.Generic(
-            Path().apply {
                 moveTo(0f, size.height)
                 lineTo(0f, 0f)
                 lineTo(size.width * 0.9f, 0f) 
-                lineTo(size.width, size.height) 
+                lineTo(size.width, size.height)
+                close() 
             }
         )
     }
