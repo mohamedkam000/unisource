@@ -1,6 +1,5 @@
 package com.unisource.app.ui.widgets
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,11 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.unisource.app.model.AppItem
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.draw.shadow
 
 @Composable
 fun HorizontalCard(
@@ -24,10 +24,12 @@ fun HorizontalCard(
 ) {
     ElevatedCard(
         onClick = onClick,
-        modifier = Modifier.size(200.dp),
+        modifier = Modifier
+            .size(200.dp)
+            .shadow(6.dp, RoundedCornerShape(28.dp)),
         shape = RoundedCornerShape(28.dp),
         colors = CardDefaults.elevatedCardColors(
-            containerColor = MaterialTheme.colorScheme.surface // theme-aware, not hardcoded
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -37,10 +39,9 @@ fun HorizontalCard(
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(28.dp)),
-                contentScale = ContentScale.Crop
+                contentScale = androidx.compose.ui.layout.ContentScale.Crop
             )
 
-            // Gradient overlay to ensure text contrast
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -49,16 +50,17 @@ fun HorizontalCard(
                         Brush.verticalGradient(
                             colors = listOf(
                                 Color.Transparent,
-                                MaterialTheme.colorScheme.surface.copy(alpha = 0.85f)
+                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.9f)
                             )
                         )
                     )
-                    .padding(12.dp)
+                    .padding(horizontal = 12.dp, vertical = 16.dp)
             ) {
                 Text(
                     text = item.title,
                     style = MaterialTheme.typography.bodyLarge.copy(
-                        color = MaterialTheme.colorScheme.onSurface // always readable over surface
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontWeight = FontWeight.SemiBold
                     ),
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis

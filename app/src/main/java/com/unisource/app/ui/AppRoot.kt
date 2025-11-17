@@ -25,11 +25,15 @@ fun AppRoot() {
                 composable("home") {
                     HomeScreen(
                         onItemClick = { title, url ->
-                            if (title == "Books") {
-                                nav.navigate("books")
-                            } else {
-                                val encoded = Uri.encode(url)
-                                nav.navigate("detail/$title/$encoded")
+                            when (title) {
+                                "Books" -> nav.navigate("books")
+                                "Announcements" -> nav.navigate("announcements")
+//                                "Activities" -> nav.navigate("activities")
+//                                "Topics" -> nav.navigate("topics")
+                                else -> {
+                                    val encoded = Uri.encode(url)
+                                    nav.navigate("detail/$title/$encoded")
+                                }
                             }
                         }
                     )
