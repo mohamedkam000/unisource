@@ -1,16 +1,21 @@
 package com.unisource.app.ui.screens
 
-import androidx.compose.material3.*
-import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
-import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.nestedScroll
+import androidx.compose.material3.*
+import androidx.compose.material3.TopAppBarDefaults.exitUntilCollapsedScrollBehavior
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import com.unisource.app.model.AppItem
 import com.unisource.app.ui.widgets.HorizontalCard
 import com.unisource.app.ui.widgets.VerticalItem
-import com.unisource.app.model.AppItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,24 +35,81 @@ fun HomeScreen(
         AppItem("Exams", "https://cdn-icons-png.flaticon.com/512/9043/9043010.png"),
         AppItem("Assignments", "https://cdn-icons-png.flaticon.com/512/11265/11265088.png"),
         AppItem("Courses", "https://cdn-icons-png.flaticon.com/512/10748/10748346.png"),
-)
+    )
 
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val scrollBehavior = exitUntilCollapsedScrollBehavior()
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
-                title = { Text("Unisource") },
+                title = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        val collapseFraction = scrollBehavior.state.collapsedFraction
+                        val scale = 1f - (0.45f * collapseFraction)
+
+                        AsyncImage(
+                            model = "https://cdn-icons-png.flaticon.com/512/833/833524.png",
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(48.dp)
+                                .scale(scale),
+                            contentScale = androidx.compose.ui.layout.ContentScale.Fit
+                        )
+
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text("Unisource")
+                    }
+                },
+                scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
                     scrolledContainerColor = MaterialTheme.colorScheme.surface,
-                    titleContentColor = MaterialTheme.colorScheme.onSurface,
-                ),
-                scrollBehavior = scrollBehavior
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
+                )
             )
         },
         containerColor = MaterialTheme.colorScheme.surfaceVariant
     ) { padding ->
+        LazyColumn(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+        ) {
+            item {
+                Text(
+                    "Featured",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(16.dp)
+                )
+
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(horizontalCards) { card ->
+                        HorizontalCard(card) {
+                            onItemClick(card.title, card.imageUrl)
+                        }
+                    }
+                }
+                Spacer(Modifier.height(32.dp))
+            }
+
+            item {
+                Text(
+                    "Categories",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+
+            items(categories) { cat ->
+                VerticalItem(
+                    item = cat,
+                    onClick = { onItemClick(cat.title, cat.imageUrl) }
+                )
+            }
+        }
     }
 }

@@ -56,6 +56,21 @@ fun AppRoot() {
                     MaterialsScreen(semester = semester)
                 }
 
+                composable("announcements") {
+                    AnnouncementsScreen { title ->
+                        nav.navigate("announcement_detail/$title")
+                    }
+                }
+                
+                composable(
+                    "announcement_detail/{title}",
+                    arguments = listOf(navArgument("title") { type = NavType.StringType })
+                ) { backStack ->
+                    val title = backStack.arguments?.getString("title") ?: ""
+                    val announcement = AnnouncementsRepository.announcements.find { it.title == title }!!
+                    AnnouncementDetailScreen(announcement = announcement)
+                }
+
                 composable(
                     "detail/{title}/{url}",
                     arguments = listOf(
