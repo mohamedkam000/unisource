@@ -45,7 +45,7 @@ fun HomeScreen(
         AppItem("Courses", "https://cdn-icons-png.flaticon.com/512/10748/10748346.png"),
     )
 
-    val scrollBehavior = exitUntilCollapsedScrollBehavior(
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         TopAppBarDefaults.createScrollState()
     )
 
