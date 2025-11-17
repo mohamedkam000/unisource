@@ -2,22 +2,25 @@ package com.unisource.app.ui
 
 import android.net.Uri
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
+import androidx.compose.runtime.*
+import androidx.navigation.*
 import androidx.navigation.compose.*
 import com.unisource.app.ui.screens.*
-import com.unisource.app.data.AnnouncementsRepository
+import com.unisource.app.data.*
 
 @Composable
 fun AppRoot() {
     MaterialTheme {
         Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
+
             val nav = rememberNavController()
 
             NavHost(
                 navController = nav,
                 startDestination = NavRoute.Home.route
             ) {
+
+                // HOME
                 composable(NavRoute.Home.route) {
                     HomeScreen { title, url ->
                         when (title) {
@@ -25,6 +28,7 @@ fun AppRoot() {
                             "Announcements" -> nav.navigate(NavRoute.Announcements.route)
                             "Activities" -> nav.navigate(NavRoute.Activities.route)
                             "Topics" -> nav.navigate(NavRoute.Topics.route)
+                            "Schedule" -> nav.navigate(NavRoute.Schedule.route)
                             else -> nav.navigate(NavRoute.Detail.go(title, url))
                         }
                     }
@@ -69,7 +73,41 @@ fun AppRoot() {
                     AnnouncementDetailScreen(announcement)
                 }
 
-                // ANY OTHER DETAIL PAGE
+                // SCHEDULE ROOT → Select semester
+                composable(NavRoute.Schedule.route) {
+                    SemesterSelectionScreen { semester ->
+                        nav.navigate(NavRoute.ScheduleOptions.go(semester))
+                    }
+                }
+
+                // SCHEDULE OPTIONS → Academic/Lab/Exam
+                composable(
+                    NavRoute.ScheduleOptions.route,
+                    arguments = listOf(navArgument("semester") { type = NavType.StringType })
+                ) { backStack ->
+                    val semester = backStack.arguments?.getString("semester") ?: ""
+                    val items =
+                        SchedulesRepository.schedulesBySemester[semester] ?: emptyList()
+
+                    ScheduleOptionsScreen(
+                        semester = semester,
+                        items = items,
+                        onOpenImage = { url ->
+                            nav.navigate(NavRoute.FullImage.go(url))
+                        }
+                    )
+                }
+
+                // FULL IMAGE
+                composable(
+                    NavRoute.FullImage.route,
+                    arguments = listOf(navArgument("url") { type = NavType.StringType })
+                ) {
+                    val url = Uri.decode(it.arguments?.getString("url") ?: "")
+                    FullImageScreen(url)
+                }
+
+                // GENERIC DETAIL SCREEN
                 composable(
                     NavRoute.Detail.route,
                     arguments = listOf(

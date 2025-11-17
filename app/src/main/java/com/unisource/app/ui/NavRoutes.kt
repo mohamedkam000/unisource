@@ -23,4 +23,13 @@ sealed class NavRoute(val route: String) {
         fun go(title: String) =
             "announcement_detail/${Uri.encode(title)}"
     }
+
+    object Schedule : NavRoute("schedule")
+    object Semesters : NavRoute("schedule_semesters")
+    object ScheduleOptions : NavRoute("schedule_options/{semester}") {
+        fun go(semester: String) = "schedule_options/$semester"
+    }
+    object FullImage : NavRoute("full_image/{url}") {
+        fun go(url: String) = "full_image/${Uri.encode(url)}"
+    }
 }
