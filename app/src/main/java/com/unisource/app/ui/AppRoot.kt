@@ -53,13 +53,7 @@ fun AppRoot() {
                     )
                 ) { backStack ->
                     val semester = backStack.arguments?.getString("semester") ?: "Unknown"
-                    MaterialsScreen(
-                        semester = semester,
-                        onItemClick = { title, url ->
-                            val encoded = Uri.encode(url)
-                            nav.navigate("detail/$title/$encoded")
-                        }
-                    )
+                    MaterialsScreen(semester = semester)
                 }
 
                 composable(
