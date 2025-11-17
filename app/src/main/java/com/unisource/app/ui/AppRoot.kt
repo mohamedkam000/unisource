@@ -21,7 +21,6 @@ fun AppRoot() {
                 navController = nav,
                 startDestination = "home"
             ) {
-            
                 composable("home") {
                     HomeScreen(
                         onItemClick = { title, url ->
@@ -34,30 +33,35 @@ fun AppRoot() {
                         }
                     )
                 }
-            
+
                 composable("books") {
                     BooksScreen(
                         onItemClick = { title, url ->
                             val encoded = Uri.encode(url)
                             nav.navigate("detail/$title/$encoded")
                         },
-                        onYearClick = { year ->
-                            if (year == 2025) {
-                                nav.navigate("materials2025")
-                            }
+                        onSemesterClick = { semesterTitle ->
+                            nav.navigate("materials/$semesterTitle")
                         }
                     )
                 }
-            
-                composable("materials2025") {
+
+                composable(
+                    route = "materials/{semester}",
+                    arguments = listOf(
+                        navArgument("semester") { type = NavType.StringType }
+                    )
+                ) { backStack ->
+                    val semester = backStack.arguments?.getString("semester") ?: "Unknown"
                     MaterialsScreen(
+                        semester = semester,
                         onItemClick = { title, url ->
                             val encoded = Uri.encode(url)
                             nav.navigate("detail/$title/$encoded")
                         }
                     )
                 }
-            
+
                 composable(
                     "detail/{title}/{url}",
                     arguments = listOf(

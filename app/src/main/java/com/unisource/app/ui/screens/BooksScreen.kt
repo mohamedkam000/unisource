@@ -8,6 +8,7 @@ import androidx.compose.material3.TopAppBarDefaults.exitUntilCollapsedScrollBeha
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
 import androidx.compose.ui.input.*
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp

@@ -7,6 +7,7 @@ import androidx.compose.material3.TopAppBarDefaults.exitUntilCollapsedScrollBeha
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.input.*
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.foundation.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
