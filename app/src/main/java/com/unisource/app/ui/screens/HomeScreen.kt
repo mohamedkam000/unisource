@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import coil.compose.AsyncImage
+import androidx.compose.animation.core.spring
 import com.unisource.app.model.AppItem
 import com.unisource.app.ui.widgets.HorizontalCard
 import com.unisource.app.ui.widgets.VerticalItem
