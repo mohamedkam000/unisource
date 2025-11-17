@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
+import androidx.compose.ui.util.lerp
 import androidx.compose.foundation.clickable
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
@@ -22,7 +23,6 @@ import coil.compose.AsyncImage
 import com.unisource.app.data.MaterialsRepository
 import com.unisource.app.data.MaterialItem
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.lerp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
