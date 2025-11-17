@@ -1,6 +1,5 @@
 package com.unisource.app.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -8,7 +7,6 @@ import androidx.compose.foundation.nestedScroll
 import androidx.compose.material3.*
 import androidx.compose.material3.TopAppBarDefaults.exitUntilCollapsedScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -32,9 +30,9 @@ fun BooksScreen(
         AppItem("Semester 5", "https://picsum.photos/id/1014/200/200"),
         AppItem("Semester 6", "https://picsum.photos/id/1015/200/200"),
         AppItem("Semester 7", "https://picsum.photos/id/1016/200/200"),
-        AppItem("Semester 8", "https://picsum.photos/id/1017/200/200")
-        AppItem("Semester 9", "https://picsum.photos/id/1016/200/200"),
-        AppItem("Semester 10", "https://picsum.photos/id/1017/200/200")
+        AppItem("Semester 8", "https://picsum.photos/id/1017/200/200"),
+        AppItem("Semester 9", "https://picsum.photos/id/1020/200/200"),
+        AppItem("Semester 10", "https://picsum.photos/id/1021/200/200")
     )
 
     val scrollBehavior = exitUntilCollapsedScrollBehavior()
@@ -70,21 +68,16 @@ fun BooksScreen(
             )
         }
     ) { padding ->
-            LazyColumn(
-                modifier = Modifier.padding(padding)
-            ) {
-                items(semesters) { item ->
-                    VerticalItem(
-                        item = item,
-                        onClick = {
-                            if (item.title == "Semester 1") {
-                                onSemesterClick(item.title)
-                            } else {
-                                onItemClick(item.title, item.imageUrl)
-                            }
-                        }
-                    )
-                }
+        LazyColumn(
+            modifier = Modifier.padding(padding)
+        ) {
+            items(semesters) { item ->
+                VerticalItem(
+                    item = item,
+                    onClick = {
+                        onSemesterClick(item.title)
+                    }
+                )
             }
         }
     }
