@@ -5,12 +5,12 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.*
 import androidx.compose.material3.TopAppBarDefaults.exitUntilCollapsedScrollBehavior
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.foundation.nestedScroll
+import androidx.compose.ui.*
+import androidx.compose.ui.input.*
+import androidx.compose.foundation.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import com.unisource.app.data.MaterialsRepository
