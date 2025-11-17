@@ -33,7 +33,21 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.surface
-                )
+                ),
+                navigationIcon = {
+                    val collapse = scrollBehavior.state.collapsedFraction
+                    val scale = (1f + 0.2f * (1f - collapse)).coerceIn(0.8f, 1.2f)
+
+                    AsyncImage(
+                        model = "https://cdn-icons-png.flaticon.com/512/8068/8068017.png",
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .scale(scale)
+                            .padding(start = 16.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
             )
         }
     ) { padding ->
@@ -42,29 +56,8 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
                 .fillMaxSize()
                 .padding(padding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp)
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
         ) {
-            item {
-                val collapse = scrollBehavior.state.collapsedFraction
-                val shrink = (1f - 0.5f * collapse).coerceAtLeast(0.5f)
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, bottom = 16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    AsyncImage(
-                        model = "https://cdn-icons-png.flaticon.com/512/8068/8068017.png",
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(100.dp)
-                            .scale(shrink),
-                        contentScale = ContentScale.Fit
-                    )
-                }
-            }
-
             items(materials) { item ->
                 MaterialItemCard(item, onItemClick)
             }

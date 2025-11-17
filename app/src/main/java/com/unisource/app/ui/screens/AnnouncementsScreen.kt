@@ -36,7 +36,6 @@ import java.time.format.FormatStyle
 fun AnnouncementsScreen(
     onAnnouncementClick: (String) -> Unit
 ) {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
     val announcements = AnnouncementsRepository.announcements
         .sortedByDescending { it.date }
 
@@ -78,7 +77,7 @@ fun AnnouncementsScreen(
                         Text(
                             "Feed",
                             style = MaterialTheme.typography.headlineMedium,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = MaterialTheme.colorScheme.primary
                         )
                     }
                 },
@@ -110,7 +109,6 @@ fun AnnouncementsScreen(
             }
         }
     }
-}
 }
 
 @Composable

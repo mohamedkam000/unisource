@@ -33,13 +33,6 @@ import com.unisource.app.ui.widgets.VerticalItem
 fun HomeScreen(
     onItemClick: (String, String) -> Unit
 ) {
-/*    val horizontalCards = listOf(
-        AppItem("Announcements", "https://cdn-icons-png.flaticon.com/512/7653/7653930.png"),
-        AppItem("Activities", "https://cdn-icons-png.flaticon.com/512/18120/18120765.png"),
-        AppItem("Topics", "https://cdn-icons-png.flaticon.com/512/9431/9431885.png"),
-        AppItem("Discussion", "https://cdn-icons-png.flaticon.com/512/17262/17262972.png"),
-    )*/
-    
     val horizontalCards = listOf(
         AppItem("Announcements", "https://cdn-icons-gif.flaticon.com/15747/15747228.gif"),
         AppItem("Activities", "https://cdn-icons-gif.flaticon.com/14164/14164931.gif"),
@@ -64,25 +57,25 @@ fun HomeScreen(
         topBar = {
             LargeTopAppBar(
                 title = {
+                    val collapseFraction = scrollBehavior.state.collapsedFraction
+                    val scale = (1f - 0.45f * collapseFraction).coerceAtLeast(0.55f)
+                    val alpha = (1f - collapseFraction * 0.7f).coerceAtLeast(0.3f)
+
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .padding(6.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f))
+                            .background(MaterialTheme.colorScheme.surfaceContainer)
                             .padding(horizontal = 12.dp, vertical = 6.dp)
+                            .alpha(alpha)
                     ) {
-                        val collapseFraction = scrollBehavior.state.collapsedFraction
-                        val scale = (1f - 0.45f * collapseFraction).coerceAtLeast(0.55f)
-                        val alpha = (1f - collapseFraction).coerceIn(0f, 1f)
-
                         Image(
                             painter = painterResource(R.drawable.logo),
                             contentDescription = null,
                             modifier = Modifier
                                 .size(48.dp)
                                 .scale(scale)
-                                .alpha(alpha)
                         )
 
                         Spacer(modifier = Modifier.width(12.dp))
@@ -91,8 +84,7 @@ fun HomeScreen(
                             "Unisource",
                             style = MaterialTheme.typography.titleLarge.copy(
                                 color = MaterialTheme.colorScheme.primary
-                            ),
-                            modifier = Modifier.alpha(alpha)
+                            )
                         )
                     }
                 },
