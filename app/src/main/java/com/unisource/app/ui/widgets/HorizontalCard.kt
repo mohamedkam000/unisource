@@ -20,8 +20,11 @@ fun HorizontalCard(
     ElevatedCard(
         onClick = onClick,
         modifier = Modifier
-            .width(200.dp)
-            .height(180.dp)
+            .size(200.dp),
+        shape = RoundedCornerShape(28.dp),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        )
     ) {
         Column(Modifier.fillMaxSize()) {
             AsyncImage(

@@ -22,7 +22,11 @@ fun VerticalItem(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 10.dp)
             .fillMaxWidth()
-            .height(110.dp)
+            .height(110.dp),
+        shape = RoundedCornerShape(28.dp),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        )
     ) {
         Row(
             modifier = Modifier
@@ -35,8 +39,7 @@ fun VerticalItem(
                 model = item.imageUrl,
                 contentDescription = null,
                 modifier = Modifier
-                    .width(87.dp)
-                    .height(87.dp)
+                    .size(87.dp)
                     .clip(RoundedCornerShape(26.dp)),
                 contentScale = ContentScale.Crop
             )

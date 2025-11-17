@@ -8,9 +8,8 @@ import com.unisource.app.ui.AppRoot
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-//        WindowCompat.setDecorFitsSystemWindows(window, true)
-
         super.onCreate(savedInstanceState)
+        actionBar?.hide()
         setContent {
             AppRoot()
         }
