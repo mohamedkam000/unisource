@@ -8,15 +8,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.*
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.clickable
 import coil.compose.AsyncImage
 import com.unisource.app.data.MaterialsRepository
 import com.unisource.app.data.MaterialItem
-import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,27 +27,36 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
+            val collapsedFraction = scrollBehavior.state.collapsedFraction
+            val iconSize = 30.dp + (26.dp * (1f - collapsedFraction))
+
             LargeTopAppBar(
-                title = { Text("$semester") },
+                title = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        AsyncImage(
+                            model = "https://cdn-icons-png.flaticon.com/512/8068/8068017.png",
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(iconSize)
+                                .clip(RoundedCornerShape(12.dp)),
+                            contentScale = ContentScale.Fit
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = semester,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                },
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
                     scrolledContainerColor = MaterialTheme.colorScheme.surface
-                ),
-                navigationIcon = {
-                    val collapse = scrollBehavior.state.collapsedFraction
-                    val scale = (1f + 0.2f * (1f - collapse)).coerceIn(0.8f, 1.2f)
-
-                    AsyncImage(
-                        model = "https://cdn-icons-png.flaticon.com/512/8068/8068017.png",
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(32.dp)
-                            .scale(scale)
-                            .padding(start = 16.dp),
-                        contentScale = ContentScale.Fit
-                    )
-                }
+                )
             )
         }
     ) { padding ->
@@ -85,8 +94,8 @@ private fun MaterialItemCard(item: MaterialItem, onItemClick: (MaterialItem) -> 
                 model = item.imageUrl,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(68.dp)
-                    .clip(RoundedCornerShape(14.dp)),
+                    .size(76.dp)
+                    .clip(RoundedCornerShape(16.dp)),
                 contentScale = ContentScale.Crop
             )
 
