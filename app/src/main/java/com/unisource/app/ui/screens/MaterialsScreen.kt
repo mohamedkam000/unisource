@@ -1,40 +1,22 @@
 package com.unisource.app.ui.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.*
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.clickable
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Outline
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
 import com.unisource.app.data.MaterialsRepository
 import com.unisource.app.data.MaterialItem
-import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
-
-private val AngledRectShape = object : Shape {
-    override fun createOutline(size: Size, layoutDirection: LayoutDirection, density: Density): Outline {
-        return Outline.Generic(
-            Path().apply {
-                moveTo(0f, size.height)
-                lineTo(0f, 0f)
-                lineTo(size.width * 0.9f, 0f)
-                lineTo(size.width, size.height)
-                close()
-            }
-        )
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,9 +28,7 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
-                title = {
-                    Text(text = "$semester Materials")
-                },
+                title = { Text("$semester") },
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
@@ -61,14 +41,17 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp)
         ) {
             item {
+                val collapse = scrollBehavior.state.collapsedFraction
+                val shrink = (1f - 0.5f * collapse).coerceAtLeast(0.5f)
+
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 16.dp),
+                        .padding(top = 16.dp, bottom = 16.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     AsyncImage(
@@ -76,14 +59,14 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
                         contentDescription = null,
                         modifier = Modifier
                             .size(100.dp)
-                            .clip(RoundedCornerShape(24.dp)),
+                            .scale(shrink),
                         contentScale = ContentScale.Fit
                     )
                 }
             }
 
             items(materials) { item ->
-                MaterialItemCard(item = item, onItemClick = onItemClick)
+                MaterialItemCard(item, onItemClick)
             }
         }
     }
@@ -100,37 +83,29 @@ private fun MaterialItemCard(item: MaterialItem, onItemClick: (MaterialItem) -> 
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
+            AsyncImage(
+                model = item.imageUrl,
+                contentDescription = null,
                 modifier = Modifier
-                    .padding(start = 4.dp, top = 4.dp, bottom = 4.dp)
-                    .width(100.dp)
-                    .fillMaxHeight()
-                    .clip(AngledRectShape)
-            ) {
-                AsyncImage(
-                    model = item.imageUrl,
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
-                )
-            }
+                    .size(68.dp)
+                    .clip(RoundedCornerShape(14.dp)),
+                contentScale = ContentScale.Crop
+            )
 
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = item.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Text(
+                text = item.title,
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }
