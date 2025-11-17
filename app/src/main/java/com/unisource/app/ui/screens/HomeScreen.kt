@@ -1,6 +1,5 @@
 package com.unisource.app.ui.screens
 
-import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -13,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.input.*
 import coil.compose.AsyncImage
 import com.unisource.app.model.AppItem
 import com.unisource.app.ui.widgets.HorizontalCard
@@ -39,7 +37,9 @@ fun HomeScreen(
         AppItem("Courses", "https://cdn-icons-png.flaticon.com/512/10748/10748346.png"),
     )
 
-    val scrollBehavior = exitUntilCollapsedScrollBehavior()
+    val scrollBehavior = exitUntilCollapsedScrollBehavior(
+        flingAnimationSpec = spring(stiffness = 50f)
+    )
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -60,7 +60,12 @@ fun HomeScreen(
                         )
 
                         Spacer(modifier = Modifier.width(12.dp))
-                        Text("Unisource")
+                        Text(
+                            "Unisource",
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        )
                     }
                 },
                 scrollBehavior = scrollBehavior,
@@ -76,7 +81,11 @@ fun HomeScreen(
         LazyColumn(
             modifier = Modifier
                 .padding(padding)
-                .fillMaxSize()
+                .fillMaxSize(),
+            contentPadding = PaddingValues(
+                top = 16.dp,
+                bottom = 24.dp
+            )
         ) {
             item {
                 Text(
