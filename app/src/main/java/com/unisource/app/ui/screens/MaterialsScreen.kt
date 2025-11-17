@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.clickable
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -34,31 +35,31 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
         topBar = {
             LargeTopAppBar(
                 title = {
-                    val alpha = collapsedFraction
+                    val alphaValue = collapsedFraction
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.offset(y = lerp(20.dp, 0.dp, alpha))
+                        modifier = Modifier.offset(y = lerp(20.dp, 0.dp, alphaValue)) 
                     ) {
                         AsyncImage(
                             model = "https://cdn-icons-png.flaticon.com/512/8068/8068017.png",
                             contentDescription = null,
                             modifier = Modifier
-                                .size(40.dp * alpha)
+                                .size(40.dp * alphaValue) 
                                 .clip(RoundedCornerShape(10.dp)),
                             contentScale = ContentScale.Fit
                         )
-                        Spacer(Modifier.width(8.dp * alpha))
+                        Spacer(Modifier.width(8.dp * alphaValue))
                         Text(
                             "$semester Materials",
                             style = MaterialTheme.typography.titleLarge,
-                            modifier = Modifier.alpha(alpha)
+                            modifier = Modifier.alpha(alphaValue)
                         )
                     }
                 },
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
-                    containerColor = Color.Transparent,
-                    scrolledContainerColor = MaterialTheme.colorScheme.surface
+                    containerColor = Color.Transparent, 
+                    scrolledContainerColor = MaterialTheme.colorScheme.surface 
                 )
             )
         }
@@ -79,7 +80,7 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     val scale = lerp(1.5f, 1f, collapsedFraction)
-                    val imageSize = lerp(120.dp, 50.dp, collapsedFraction)
+                    val imageSize = lerp(120.dp, 50.dp, collapsedFraction) 
 
                     AsyncImage(
                         model = "https://cdn-icons-png.flaticon.com/512/8068/8068017.png",
