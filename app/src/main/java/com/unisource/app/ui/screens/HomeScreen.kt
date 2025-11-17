@@ -48,4 +48,5 @@ fun HomeScreen(
         },
         containerColor = MaterialTheme.colorScheme.surfaceVariant
     ) { padding ->
+    }
 }
