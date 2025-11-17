@@ -8,13 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.unisource.app.model.AppItem
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.draw.shadow
 
 @Composable
@@ -46,20 +46,18 @@ fun HorizontalCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter)
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.9f)
-                            )
-                        )
-                    )
                     .padding(horizontal = 12.dp, vertical = 16.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(
+                        Color.White.copy(alpha = 0.3f)
+                    )
+                    .blur(16.dp)
+                    .padding(8.dp)
             ) {
                 Text(
                     text = item.title,
                     style = MaterialTheme.typography.bodyLarge.copy(
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.SemiBold
                     ),
                     maxLines = 2,

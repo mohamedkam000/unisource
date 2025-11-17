@@ -51,7 +51,7 @@ fun HomeScreen(
                         val scale = 1f - (0.45f * collapseFraction)
 
                         AsyncImage(
-                            model = "https://cdn-icons-png.flaticon.com/512/833/833524.png",
+                            model = "https://raw.githubusercontent.com/mohamedkam000/unisource/main/app/src/main/res/drawable/logo.png",
                             contentDescription = null,
                             modifier = Modifier
                                 .size(48.dp)
