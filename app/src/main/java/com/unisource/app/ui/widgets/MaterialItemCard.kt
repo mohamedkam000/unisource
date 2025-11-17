@@ -1,0 +1,105 @@
+package com.unisource.app.ui.widgets
+
+import android.content.Context
+import android.os.Environment
+import android.app.DownloadManager
+import android.net.Uri
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
+import java.io.File
+
+@Composable
+fun MaterialItemCard(
+    title: String,
+    url: String,
+    fileName: String,
+    context: Context
+) {
+    var isDownloading by remember { mutableStateOf(false) }
+    var isDownloaded by remember { mutableStateOf(checkIfDownloaded(context, fileName)) }
+
+    ElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                title,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.weight(1f)
+            )
+
+            if (isDownloaded) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            } else {
+                if (isDownloading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    IconButton(
+                        onClick = {
+                            isDownloading = true
+                            startDownload(
+                                context = context,
+                                url = url,
+                                fileName = fileName,
+                                onComplete = {
+                                    isDownloading = false
+                                    isDownloaded = true
+                                }
+                            )
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Download,
+                            contentDescription = null
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+fun startDownload(
+    context: Context,
+    url: String,
+    fileName: String,
+    onComplete: () -> Unit
+) {
+    val request = DownloadManager.Request(Uri.parse(url))
+        .setTitle(fileName)
+        .setDestinationInExternalPublicDir(
+            Environment.DIRECTORY_DOWNLOADS,
+            fileName
+        )
+        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+
+    val dm = context.getSystemService(DownloadManager::class.java)
+    dm.enqueue(request)
+    onComplete()
+}
+
+fun checkIfDownloaded(context: Context, fileName: String): Boolean {
+    val file = File(
+        Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_DOWNLOADS
+        ),
+        fileName
+    )
+    return file.exists()
+}

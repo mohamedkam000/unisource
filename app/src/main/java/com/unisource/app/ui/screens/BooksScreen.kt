@@ -1,12 +1,20 @@
 package com.unisource.app.ui.screens
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.nestedScroll
 import androidx.compose.material3.*
+import androidx.compose.material3.TopAppBarDefaults.exitUntilCollapsedScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.unisource.app.model.AppItem
 import com.unisource.app.ui.widgets.VerticalItem
 
@@ -14,35 +22,69 @@ import com.unisource.app.ui.widgets.VerticalItem
 @Composable
 fun BooksScreen(
     onItemClick: (String, String) -> Unit,
-    onYearClick: (Int) -> Unit
+    onSemesterClick: (String) -> Unit
 ) {
-    val years = (2017..2025).toList().reversed()
+    val semesters = listOf(
+        AppItem("Semester 1", "https://picsum.photos/id/1010/200/200"),
+        AppItem("Semester 2", "https://picsum.photos/id/1011/200/200"),
+        AppItem("Semester 3", "https://picsum.photos/id/1012/200/200"),
+        AppItem("Semester 4", "https://picsum.photos/id/1013/200/200"),
+        AppItem("Semester 5", "https://picsum.photos/id/1014/200/200"),
+        AppItem("Semester 6", "https://picsum.photos/id/1015/200/200"),
+        AppItem("Semester 7", "https://picsum.photos/id/1016/200/200"),
+        AppItem("Semester 8", "https://picsum.photos/id/1017/200/200")
+        AppItem("Semester 9", "https://picsum.photos/id/1016/200/200"),
+        AppItem("Semester 10", "https://picsum.photos/id/1017/200/200")
+    )
+
+    val scrollBehavior = exitUntilCollapsedScrollBehavior()
 
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopAppBar(title = { Text("Books by Year") })
+            LargeTopAppBar(
+                title = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        val collapseFraction = scrollBehavior.state.collapsedFraction
+                        val scale = 1f - (0.45f * collapseFraction)
+
+                        AsyncImage(
+                            model = "https://picsum.photos/id/1003/200/200",
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(48.dp)
+                                .scale(scale),
+                            contentScale = ContentScale.Fit
+                        )
+
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text("Books by Semester")
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.largeTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+                    scrolledContainerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
+                )
+            )
         }
     ) { padding ->
-
-        LazyColumn(
-            modifier = Modifier.padding(padding)
-        ) {
-            items(years) { year ->
-                val item = AppItem(
-                    title = year.toString(),
-                    imageUrl = "https://picsum.photos/seed/$year/200/200"
-                )
-
-                VerticalItem(
-                    item = item,
-                    onClick = {
-                        if (year == 2025) {
-                            onYearClick(year)
-                        } else {
-                            onItemClick(item.title, item.imageUrl)
+            LazyColumn(
+                modifier = Modifier.padding(padding)
+            ) {
+                items(semesters) { item ->
+                    VerticalItem(
+                        item = item,
+                        onClick = {
+                            if (item.title == "Semester 1") {
+                                onSemesterClick(item.title)
+                            } else {
+                                onItemClick(item.title, item.imageUrl)
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     }
