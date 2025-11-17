@@ -15,8 +15,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import coil.compose.AsyncImage
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.rememberSplineBasedDecay
+import androidx.compose.animation.core.*
 import com.unisource.app.model.AppItem
 import com.unisource.app.ui.widgets.HorizontalCard
 import com.unisource.app.ui.widgets.VerticalItem
@@ -48,7 +47,7 @@ fun HomeScreen(
         AppItem("Courses", "https://cdn-icons-png.flaticon.com/512/10748/10748346.png"),
     )
 
-    val decayAnimationSpec = rememberSplineBasedDecay<Float>()
+    val decayAnimationSpec: DecayAnimationSpec<Float> = splineBasedDecay()
     val scrollBehavior = exitUntilCollapsedScrollBehavior(
         flingAnimationSpec = decayAnimationSpec
     )
