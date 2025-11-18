@@ -17,6 +17,7 @@ import coil.compose.AsyncImage
 import com.unisource.app.model.AppItem
 import com.unisource.app.ui.widgets.VerticalItem
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SemesterSelectionScreen(
     onSemesterClick: (String) -> Unit

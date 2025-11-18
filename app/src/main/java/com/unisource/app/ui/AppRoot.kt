@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import androidx.navigation.*
 import androidx.navigation.compose.*
 import com.unisource.app.ui.screens.*
+import com.unisource.app.ui.screens.schedule.*
 import com.unisource.app.data.*
 
 @Composable

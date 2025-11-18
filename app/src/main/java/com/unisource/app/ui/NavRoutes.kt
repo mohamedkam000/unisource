@@ -1,5 +1,7 @@
 package com.unisource.app.ui
 
+import android.net.Uri
+
 sealed class NavRoute(val route: String) {
 
     object Home : NavRoute("home")

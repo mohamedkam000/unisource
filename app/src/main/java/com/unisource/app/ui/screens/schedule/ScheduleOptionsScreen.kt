@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.unisource.app.data.ScheduleItem
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScheduleOptionsScreen(
     semester: String,
