@@ -129,7 +129,7 @@ private fun DateHeader(dateString: String) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 8.dp, bottom = 8.dp),
-        contentAlignment = Alignment.Start
+        contentAlignment = Alignment.TopStart
     ) {
         Surface(
             shape = CircleShape,
