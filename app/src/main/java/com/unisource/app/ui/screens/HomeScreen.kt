@@ -59,12 +59,19 @@ fun HomeScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(end = 16.dp)
                     ) {
-                        Image(
-                            painter = painterResource(R.drawable.logo),
-                            contentDescription = null,
-                            modifier = Modifier.size(48.dp)
-                        )
-                
+                        Surface(
+                            shape = RoundedCornerShape(percent = 50),
+                            color = MaterialTheme.colorScheme.primaryContainer
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.logo),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .padding(8.dp)
+                            )
+                        }
+
                         Spacer(modifier = Modifier.width(12.dp))
                 
                         Surface(

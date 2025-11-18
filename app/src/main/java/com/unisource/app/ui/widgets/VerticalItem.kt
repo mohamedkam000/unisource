@@ -25,7 +25,7 @@ fun VerticalItem(
             .height(110.dp),
         shape = RoundedCornerShape(28.dp),
         colors = CardDefaults.elevatedCardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ) {
         Row(

@@ -32,7 +32,7 @@ fun AppRoot() {
                             "Announcements" -> nav.navigate(NavRoute.Announcements.route)
                             "Activities" -> nav.navigate(NavRoute.Activities.route)
                             "Topics" -> nav.navigate(NavRoute.Topics.route)
-                            "Schedule" -> nav.navigate(NavRoute.Schedule.route)
+                            "Schedules" -> nav.navigate(NavRoute.Schedule.route)
                             else -> nav.navigate(NavRoute.Detail.go(title, url))
                         }
                     }
