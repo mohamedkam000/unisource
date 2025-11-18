@@ -47,7 +47,7 @@ fun SemesterSelectionScreen(
                         val scale = 1f - (0.45f * collapseFraction)
 
                         AsyncImage(
-                            model = "https://cdn-icons-png.flaticon.com/512/5402/5402751.png",
+                            model = "https://cdn-icons-png.flaticon.com/512/3652/3652191.png",
                             contentDescription = null,
                             modifier = Modifier
                                 .size(48.dp)

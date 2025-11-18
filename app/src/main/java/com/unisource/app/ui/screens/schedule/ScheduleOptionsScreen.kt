@@ -2,6 +2,8 @@ package com.unisource.app.ui.screens.schedule
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,13 +26,13 @@ fun ScheduleOptionsScreen(
         }
     ) { padding ->
 
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .padding(padding)
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            items.forEach { item ->
+            items(items) { item ->
                 ElevatedCard(
                     onClick = { onOpenImage(item.imageUrl) },
                     shape = RoundedCornerShape(24.dp),

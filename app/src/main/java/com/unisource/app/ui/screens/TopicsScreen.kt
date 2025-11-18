@@ -59,7 +59,7 @@ fun TopicsScreen(
 
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
-                                .data("https://cdn-icons-png.flaticon.com/512/7653/7653930.png")
+                                .data("https://cdn-icons-gif.flaticon.com/15401/15401436.gif")
                                 .crossfade(true)
                                 .build(),
                             contentDescription = null,
@@ -75,7 +75,7 @@ fun TopicsScreen(
                         Spacer(modifier = Modifier.width(16.dp))
                         
                         Text(
-                            "Feed",
+                            "Topics",
                             style = MaterialTheme.typography.headlineMedium,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -100,10 +100,19 @@ fun TopicsScreen(
                 item {
                     DateHeader(date)
                 }
-                items(items) { topic ->
+                items(items.size) { index ->
+                    val topic = items[index]
+                
+                    val isFirst = index == 0
+                    val isLast = index == items.lastIndex
+                    val isSingle = items.size == 1
+                
                     GoogleStyleAnnouncementCard(
                         topic = topic,
-                        onClick = { onTopicClick(topic.title) }
+                        onClick = { onTopicClick(topic.title) },
+                        isFirst = isFirst,
+                        isLast = isLast,
+                        isSingle = isSingle
                     )
                 }
             }
@@ -120,7 +129,7 @@ private fun DateHeader(dateString: String) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 8.dp, bottom = 8.dp),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Start
     ) {
         Surface(
             shape = CircleShape,
@@ -139,23 +148,30 @@ private fun DateHeader(dateString: String) {
 @Composable
 private fun GoogleStyleAnnouncementCard(
     topic: Topic,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    isFirst: Boolean = false,
+    isLast: Boolean = false,
+    isSingle: Boolean = false
 ) {
-    Column(
+    val shape = when {
+        isSingle -> RoundedCornerShape(20.dp)
+        isFirst -> RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+        isLast -> RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
+        else -> RoundedCornerShape(0.dp)
+    }
+
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp)
-            .clickable(onClick = onClick)
+            .clickable(onClick = onClick),
+        shape = shape,
+        tonalElevation = if (isFirst) 2.dp else 0.dp,
+        color = MaterialTheme.colorScheme.surfaceVariant
     ) {
-        Card(
-            shape = RoundedCornerShape(28.dp),
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(220.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
-            ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                .padding(bottom = if (isLast) 12.dp else 0.dp)
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
@@ -163,23 +179,24 @@ private fun GoogleStyleAnnouncementCard(
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp),
+                contentScale = ContentScale.Crop
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = topic.title,
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Medium
+                ),
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(horizontal = 20.dp)
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = topic.title,
-            style = MaterialTheme.typography.titleLarge.copy(
-                fontWeight = FontWeight.Medium
-            ),
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.fillMaxWidth( ),
-            textAlign = TextAlign.Start
-        )
-        
-        Spacer(modifier = Modifier.height(4.dp))
     }
 }

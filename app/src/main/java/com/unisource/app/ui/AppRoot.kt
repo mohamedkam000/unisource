@@ -74,6 +74,16 @@ fun AppRoot() {
                     AnnouncementDetailScreen(announcement)
                 }
 
+                // TOPICS
+                composable(NavRoute.Topics.route) {
+                    TopicsScreen()
+                }
+
+                // ACTIVITIES
+                composable(NavRoute.Activities.route) {
+                    ActivitiesScreen()
+                }
+
                 // SCHEDULE ROOT → Select semester
                 composable(NavRoute.Schedule.route) {
                     SemesterSelectionScreen { semester ->

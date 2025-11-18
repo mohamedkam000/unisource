@@ -17,6 +17,7 @@ import androidx.compose.foundation.clickable
 import coil.compose.AsyncImage
 import com.unisource.app.data.MaterialsRepository
 import com.unisource.app.data.MaterialItem
+import com.unisource.app.ui.widgets.DownloadableMaterialItemCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,13 +69,13 @@ fun MaterialsScreen(semester: String, onItemClick: (MaterialItem) -> Unit = {}) 
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
         ) {
             items(materials) { item ->
-                MaterialItemCard(item, onItemClick)
+                DownloadableMaterialItemCard(item)
             }
         }
     }
 }
 
-@Composable
+/*@Composable
 private fun MaterialItemCard(item: MaterialItem, onItemClick: (MaterialItem) -> Unit) {
     Card(
         modifier = Modifier
@@ -110,4 +111,4 @@ private fun MaterialItemCard(item: MaterialItem, onItemClick: (MaterialItem) -> 
             )
         }
     }
-}
+}*/

@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import java.io.File
 
-@Composable
+/*@Composable
 fun MaterialItemCard(
     title: String,
     url: String,
@@ -71,6 +71,62 @@ fun MaterialItemCard(
                             contentDescription = null
                         )
                     }
+                }
+            }
+        }
+    }
+}*/
+
+@Composable
+fun DownloadableMaterialItemCard(
+    item: MaterialItem,
+    context: Context = LocalContext.current
+) {
+    var isDownloading by remember { mutableStateOf(false) }
+    var isDownloaded by remember { mutableStateOf(checkIfDownloaded(context, item.fileName)) }
+
+    ElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                item.title,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.weight(1f)
+            )
+
+            when {
+                isDownloaded -> Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+
+                isDownloading -> CircularProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    strokeWidth = 2.dp
+                )
+
+                else -> IconButton(
+                    onClick = {
+                        isDownloading = true
+                        startDownload(
+                            context = context,
+                            url = item.url,
+                            fileName = item.fileName,
+                            onComplete = {
+                                isDownloading = false
+                                isDownloaded = true
+                            }
+                        )
+                    }
+                ) {
+                    Icon(Icons.Default.Download, contentDescription = null)
                 }
             }
         }
