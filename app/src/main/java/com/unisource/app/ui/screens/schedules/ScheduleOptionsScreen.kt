@@ -1,4 +1,4 @@
-package com.unisource.app.ui.screens.schedule
+package com.unisource.app.ui.screens.schedules
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

@@ -6,7 +6,10 @@ import androidx.compose.runtime.*
 import androidx.navigation.*
 import androidx.navigation.compose.*
 import com.unisource.app.ui.screens.*
-import com.unisource.app.ui.screens.schedule.*
+import com.unisource.app.ui.screens.schedules.*
+import com.unisource.app.ui.screens.topics.*
+import com.unisource.app.ui.screens.announcements.*
+import com.unisource.app.ui.screens.activities.*
 import com.unisource.app.data.*
 
 @Composable
@@ -76,12 +79,38 @@ fun AppRoot() {
 
                 // TOPICS
                 composable(NavRoute.Topics.route) {
-                    TopicsScreen()
+                    TopicsScreen { title ->
+                        nav.navigate(NavRoute.TopicDetail.go(title))
+                    }
+                }
+
+                // TOPIC DETAIL
+                composable(
+                    NavRoute.TopicDetail.route,
+                    arguments = listOf(navArgument("title") { type = NavType.StringType })
+                ) {
+                    val title = it.arguments?.getString("title") ?: ""
+                    val topic =
+                        TopicsRepository.topics.first { a -> a.title == title }
+                    TopicDetailScreen(topic)
                 }
 
                 // ACTIVITIES
                 composable(NavRoute.Activities.route) {
-                    ActivitiesScreen()
+                    ActivitiesScreen { title ->
+                        nav.navigate(NavRoute.ActivityDetail.go(title))
+                    }
+                }
+
+                // ACTIVITY DETAIL
+                composable(
+                    NavRoute.ActivityDetail.route,
+                    arguments = listOf(navArgument("title") { type = NavType.StringType })
+                ) {
+                    val title = it.arguments?.getString("title") ?: ""
+                    val activity =
+                        ActivitiesRepository.activities.first { a -> a.title == title }
+                    ActivityDetailScreen(activity)
                 }
 
                 // SCHEDULE ROOT → Select semester

@@ -1,4 +1,4 @@
-package com.unisource.app.ui.screens
+package com.unisource.app.ui.screens.activities
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,12 +15,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.unisource.app.model.Announcement
+import com.unisource.app.model.Activity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AnnouncementDetailScreen(
-    announcement: Announcement
+fun ActivityDetailScreen(
+    activity: Activity
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
@@ -29,7 +29,7 @@ fun AnnouncementDetailScreen(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             LargeTopAppBar(
-                title = { Text(announcement.title) },
+                title = { Text(activity.title) },
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface,
@@ -51,7 +51,7 @@ fun AnnouncementDetailScreen(
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(announcement.imageUrl)
+                        .data(activity.imageUrl)
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
@@ -67,7 +67,7 @@ fun AnnouncementDetailScreen(
             Spacer(Modifier.height(24.dp))
 
             Text(
-                announcement.title,
+                activity.title,
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(horizontal = 24.dp)
@@ -75,17 +75,8 @@ fun AnnouncementDetailScreen(
 
             Spacer(Modifier.height(8.dp))
 
-/*            Text(
-                announcement.subtitle,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.padding(horizontal = 24.dp)
-            )
-
-            Spacer(Modifier.height(16.dp))*/
-
             Text(
-                announcement.content,
+                activity.content,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 24.dp)

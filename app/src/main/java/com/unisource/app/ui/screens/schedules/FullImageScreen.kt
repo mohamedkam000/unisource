@@ -1,4 +1,4 @@
-package com.unisource.app.ui.screens.schedule
+package com.unisource.app.ui.screens.schedules
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

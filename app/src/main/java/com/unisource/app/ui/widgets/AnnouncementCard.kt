@@ -38,7 +38,6 @@ fun AnnouncementCard(
             Column(modifier = Modifier.weight(1f)) {
                 Text(announcement.title, style = MaterialTheme.typography.titleMedium)
                 Spacer(Modifier.height(4.dp))
-//                Text(announcement.subtitle, style = MaterialTheme.typography.bodyMedium)
             }
         }
     }

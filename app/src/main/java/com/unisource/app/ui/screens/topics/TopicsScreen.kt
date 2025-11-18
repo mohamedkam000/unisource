@@ -1,4 +1,4 @@
-package com.unisource.app.ui.screens
+package com.unisource.app.ui.screens.topics
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
