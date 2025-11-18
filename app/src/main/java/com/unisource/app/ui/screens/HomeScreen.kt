@@ -33,14 +33,14 @@ fun HomeScreen(
 ) {
     val horizontalCards = listOf(
         AppItem("Announcements", "https://cdn-icons-gif.flaticon.com/15747/15747228.gif"),
-        AppItem("Activities", "https://cdn-icons-gif.flaticon.com/14164/14164931.gif"),
         AppItem("Topics", "https://cdn-icons-gif.flaticon.com/15401/15401436.gif"),
+        AppItem("Activities", "https://cdn-icons-gif.flaticon.com/14164/14164931.gif"),
         AppItem("Discussion", "https://cdn-icons-gif.flaticon.com/17556/17556488.gif"),
     )
 
     val categories = listOf(
         AppItem("Books", "https://cdn-icons-png.flaticon.com/512/5402/5402751.png"),
-        AppItem("Schedule", "https://cdn-icons-png.flaticon.com/512/3652/3652191.png"),
+        AppItem("Schedules", "https://cdn-icons-png.flaticon.com/512/3652/3652191.png"),
         AppItem("Exams", "https://cdn-icons-png.flaticon.com/512/9043/9043010.png"),
         AppItem("Assignments", "https://cdn-icons-png.flaticon.com/512/11265/11265088.png"),
         AppItem("Courses", "https://cdn-icons-png.flaticon.com/512/10748/10748346.png"),
@@ -64,16 +64,22 @@ fun HomeScreen(
                             contentDescription = null,
                             modifier = Modifier.size(48.dp)
                         )
-
+                
                         Spacer(modifier = Modifier.width(12.dp))
-
-                        Text(
-                            text = "Unisource",
-                            style = MaterialTheme.typography.headlineMedium.copy(
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
+                
+                        Surface(
+                            shape = RoundedCornerShape(percent = 50),
+                            color = MaterialTheme.colorScheme.primaryContainer
+                        ) {
+                            Text(
+                                text = "Unisource",
+                                style = MaterialTheme.typography.labelLarge.copy(
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                                ),
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                             )
-                        )
+                        }
                     }
                 },
                 scrollBehavior = scrollBehavior,

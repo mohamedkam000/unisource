@@ -128,7 +128,7 @@ private fun DateHeader(dateString: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 8.dp, bottom = 8.dp),
+            .padding(top = 8.dp, bottom = 8.dp, start = 16.dp),
         contentAlignment = Alignment.TopStart
     ) {
         Surface(
@@ -163,7 +163,8 @@ private fun GoogleStyleAnnouncementCard(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .clickable(onClick = onClick)
+            .padding(horizontal = 16.dp),
         shape = shape,
         tonalElevation = if (isFirst) 2.dp else 0.dp,
         color = MaterialTheme.colorScheme.surfaceVariant

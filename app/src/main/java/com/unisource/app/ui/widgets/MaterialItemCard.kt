@@ -13,71 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalContext
+import coil.compose.AsyncImage
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import java.io.File
 import com.unisource.app.data.*
-
-/*@Composable
-fun MaterialItemCard(
-    title: String,
-    url: String,
-    fileName: String,
-    context: Context
-) {
-    var isDownloading by remember { mutableStateOf(false) }
-    var isDownloaded by remember { mutableStateOf(checkIfDownloaded(context, fileName)) }
-
-    ElevatedCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 8.dp)
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                title,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.weight(1f)
-            )
-
-            if (isDownloaded) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            } else {
-                if (isDownloading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(24.dp),
-                        strokeWidth = 2.dp
-                    )
-                } else {
-                    IconButton(
-                        onClick = {
-                            isDownloading = true
-                            startDownload(
-                                context = context,
-                                url = url,
-                                fileName = fileName,
-                                onComplete = {
-                                    isDownloading = false
-                                    isDownloaded = true
-                                }
-                            )
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Download,
-                            contentDescription = null
-                        )
-                    }
-                }
-            }
-        }
-    }
-}*/
 
 @Composable
 fun DownloadableMaterialItemCard(
@@ -91,11 +31,23 @@ fun DownloadableMaterialItemCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 12.dp, vertical = 8.dp)
+            .height(120.dp)
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            AsyncImage(
+                model = item.imageUrl,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(76.dp)
+                    .clip(RoundedCornerShape(16.dp)),
+                contentScale = ContentScale.Crop
+            )
+            
+            Spacer(modifier = Modifier.width(16.dp))
+            
             Text(
                 item.title,
                 style = MaterialTheme.typography.titleMedium,
