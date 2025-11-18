@@ -30,6 +30,8 @@ import com.unisource.app.model.Topic
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import com.unisource.app.ui.DateHeader
+import com.unisource.app.ui.StyleCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,8 +56,8 @@ fun TopicsScreen(
                     ) {
                         val collapseFraction = scrollBehavior.state.collapsedFraction
                         val imageSize = 64.dp
-                        val scale = 1f - (0.5f * collapseFraction)
-                        val alpha = 1f - (0.2f * collapseFraction)
+                        val scale = (1f - (0.5f * collapseFraction)).coerceAtLeast(0.75f)
+                        val alpha = (1f - (0.2f * collapseFraction)).coerceAtLeast(0.85f)
 
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
@@ -107,7 +109,7 @@ fun TopicsScreen(
                     val isLast = index == items.lastIndex
                     val isSingle = items.size == 1
                 
-                    GoogleStyleAnnouncementCard(
+                    StyleCard(
                         topic = topic,
                         onClick = { onTopicClick(topic.title) },
                         isFirst = isFirst,
@@ -116,88 +118,6 @@ fun TopicsScreen(
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun DateHeader(dateString: String) {
-    val parsedDate = LocalDate.parse(dateString)
-    val formattedDate = parsedDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp, bottom = 8.dp, start = 16.dp),
-        contentAlignment = Alignment.TopStart
-    ) {
-        Surface(
-            shape = CircleShape,
-            color = MaterialTheme.colorScheme.secondaryContainer,
-            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-        ) {
-            Text(
-                text = formattedDate,
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-        }
-    }
-}
-
-@Composable
-private fun GoogleStyleAnnouncementCard(
-    topic: Topic,
-    onClick: () -> Unit,
-    isFirst: Boolean = false,
-    isLast: Boolean = false,
-    isSingle: Boolean = false
-) {
-    val shape = when {
-        isSingle -> RoundedCornerShape(20.dp)
-        isFirst -> RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
-        isLast -> RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
-        else -> RoundedCornerShape(0.dp)
-    }
-
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp),
-        shape = shape,
-        tonalElevation = if (isFirst) 2.dp else 0.dp,
-        color = MaterialTheme.colorScheme.surfaceVariant
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = if (isLast) 12.dp else 0.dp)
-        ) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(topic.imageUrl)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp),
-                contentScale = ContentScale.Crop
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = topic.title,
-                style = MaterialTheme.typography.titleLarge.copy(
-                    fontWeight = FontWeight.Medium
-                ),
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(horizontal = 20.dp)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }

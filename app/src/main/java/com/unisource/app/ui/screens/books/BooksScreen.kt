@@ -1,4 +1,4 @@
-package com.unisource.app.ui.screens
+package com.unisource.app.ui.screens.books
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*

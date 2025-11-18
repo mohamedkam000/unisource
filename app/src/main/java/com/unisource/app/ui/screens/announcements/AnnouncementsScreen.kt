@@ -30,6 +30,8 @@ import com.unisource.app.model.Announcement
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import com.unisource.app.ui.DateHeader
+import com.unisource.app.ui.StyleCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,8 +56,8 @@ fun AnnouncementsScreen(
                     ) {
                         val collapseFraction = scrollBehavior.state.collapsedFraction
                         val imageSize = 64.dp
-                        val scale = 1f - (0.5f * collapseFraction)
-                        val alpha = 1f - (0.2f * collapseFraction)
+                        val scale = (1f - (0.5f * collapseFraction)).coerceAtLeast(0.75f)
+                        val alpha = (1f - (0.2f * collapseFraction)).coerceAtLeast(0.85f)
 
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
@@ -101,85 +103,12 @@ fun AnnouncementsScreen(
                     DateHeader(date)
                 }
                 items(items) { announcement ->
-                    GoogleStyleAnnouncementCard(
+                    StyleCard(
                         announcement = announcement,
                         onClick = { onAnnouncementClick(announcement.title) }
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun DateHeader(dateString: String) {
-    val parsedDate = LocalDate.parse(dateString)
-    val formattedDate = parsedDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp, bottom = 8.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Surface(
-            shape = CircleShape,
-            color = MaterialTheme.colorScheme.secondaryContainer,
-            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-        ) {
-            Text(
-                text = formattedDate,
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-        }
-    }
-}
-
-@Composable
-private fun GoogleStyleAnnouncementCard(
-    announcement: Announcement,
-    onClick: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)
-            .clickable(onClick = onClick)
-    ) {
-        Card(
-            shape = RoundedCornerShape(28.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(220.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
-            ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
-        ) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(announcement.imageUrl)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = announcement.title,
-            style = MaterialTheme.typography.titleLarge.copy(
-                fontWeight = FontWeight.Medium
-            ),
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.fillMaxWidth( ),
-            textAlign = TextAlign.Start
-        )
-        
-        Spacer(modifier = Modifier.height(4.dp))
     }
 }
