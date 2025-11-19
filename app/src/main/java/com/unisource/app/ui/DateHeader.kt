@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 @Composable
-private fun DateHeader(dateString: String) {
+fun DateHeader(dateString: String) {
     val parsedDate = LocalDate.parse(dateString)
     val formattedDate = parsedDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
 
