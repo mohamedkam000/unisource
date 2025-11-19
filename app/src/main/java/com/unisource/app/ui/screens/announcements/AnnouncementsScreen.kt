@@ -105,9 +105,10 @@ fun AnnouncementsScreen(
                 items(items) { announcement ->
                     StyleCard(
                         announcement,
-                        isFirst = isFirst,
-                        isLast = isLast,
-                        isSingle = isSingle
+                        onClick = { onAnnouncementClick(announcement.title) }
+//                        isFirst = isFirst,
+//                        isLast = isLast,
+//                        isSingle = isSingle
                     ) {
                         onAnnouncementClick(announcement.title)
                     }

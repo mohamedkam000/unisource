@@ -105,9 +105,10 @@ fun ActivitiesScreen(
                 items(items) { activity ->
                     StyleCard(
                         activity,
-                        isFirst = isFirst,
-                        isLast = isLast,
-                        isSingle = isSingle
+                        onClick = { onActivityClick(activity.title) }
+//                        isFirst = isFirst,
+//                        isLast = isLast,
+//                        isSingle = isSingle
                     ) {
                         onActivityClick(activity.title)
                     }
