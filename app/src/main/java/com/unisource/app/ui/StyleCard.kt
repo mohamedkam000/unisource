@@ -13,10 +13,16 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.layout.ContentScale
+import com.unisource.app.data.*
+
+interface CardContent {
+    val title: String
+    val imageUrl: String
+}
 
 @Composable
-private fun StyleCard(
-    topic: Topic,
+fun <T : CardContent> StyleCard(
+    item: T,
     onClick: () -> Unit,
     isFirst: Boolean = false,
     isLast: Boolean = false,
@@ -45,7 +51,7 @@ private fun StyleCard(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(topic.imageUrl)
+                    .data(item.imageUrl)
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
@@ -58,7 +64,7 @@ private fun StyleCard(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = topic.title,
+                text = item.title,
                 style = MaterialTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.Medium
                 ),

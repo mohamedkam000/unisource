@@ -104,18 +104,18 @@ fun TopicsScreen(
                 }
                 items(items.size) { index ->
                     val topic = items[index]
-                
                     val isFirst = index == 0
                     val isLast = index == items.lastIndex
                     val isSingle = items.size == 1
-                
+
                     StyleCard(
-                        topic = topic,
-                        onClick = { onTopicClick(topic.title) },
+                        topic,
                         isFirst = isFirst,
                         isLast = isLast,
                         isSingle = isSingle
-                    )
+                    ) {
+                        onTopicClick(topic.title)
+                    }
                 }
             }
         }

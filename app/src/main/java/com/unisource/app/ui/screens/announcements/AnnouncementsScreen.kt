@@ -104,9 +104,13 @@ fun AnnouncementsScreen(
                 }
                 items(items) { announcement ->
                     StyleCard(
-                        announcement = announcement,
-                        onClick = { onAnnouncementClick(announcement.title) }
-                    )
+                        announcement,
+                        isFirst = isFirst,
+                        isLast = isLast,
+                        isSingle = isSingle
+                    ) {
+                        onAnnouncementClick(announcement.title)
+                    }
                 }
             }
         }
