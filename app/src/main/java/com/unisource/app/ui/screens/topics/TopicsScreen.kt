@@ -110,12 +110,11 @@ fun TopicsScreen(
 
                     StyleCard(
                         topic,
+                        onClick = { onTopicClick(topic.title) },
                         isFirst = isFirst,
                         isLast = isLast,
                         isSingle = isSingle
-                    ) {
-                        onTopicClick(topic.title)
-                    }
+                    )
                 }
             }
         }

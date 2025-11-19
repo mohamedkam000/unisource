@@ -109,9 +109,7 @@ fun ActivitiesScreen(
 //                        isFirst = isFirst,
 //                        isLast = isLast,
 //                        isSingle = isSingle
-                    ) {
-                        onActivityClick(activity.title)
-                    }
+                    )
                 }
             }
         }

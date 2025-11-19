@@ -109,9 +109,7 @@ fun AnnouncementsScreen(
 //                        isFirst = isFirst,
 //                        isLast = isLast,
 //                        isSingle = isSingle
-                    ) {
-                        onAnnouncementClick(announcement.title)
-                    }
+                    )
                 }
             }
         }
